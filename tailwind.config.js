@@ -1,7 +1,7 @@
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   mode: "jit",
-  darkMode: 'media', // or 'media' or 'class'
+  darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
       display: ["Open Sans", "sans-serif"],
@@ -31,5 +31,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("/Users/peter/Dropbox/Mac/Desktop/web3.0/client/tailwind.config.js")],
+  plugins: [require("C:\\Users\\balma\\Documents\\GitHub\\solidity_js\\client\\tailwind.config.js")],
 };

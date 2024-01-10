@@ -7,13 +7,17 @@ export const TransactionContext = React.createContext();
 const { ethereum } = window;
 
 const getEthereumContract = () => {
-    const provider = new ethers.provider.Web3Provider(ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.JsonRpcProvider(process.env.REACT_APP_API_URL);
+    const signer = new ethers.Wallet(process.env.REACT_APP_PRIVATE_KEY, provider);
     const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
 
+   /*  const tx = signer.sendTransaction({
+        to: '0x643952c05967B56bc5c2D5B953f41740657EDD26',
+        value: ethers.parseUnits('0.001', 'ether'),
+      });
+      console.log(tx); */
 
    return transactionContract;
-
 }
 
 export const TransactionProvider = ({children}) => {
@@ -72,17 +76,17 @@ export const TransactionProvider = ({children}) => {
             const {addressTo, amount, keyword, message} = formData;
 
             const transactionContract = getEthereumContract();
-            const parsedAmount = ethers.utils.parsedEther(amount);
+            const parsedAmount = ethers.parseUnits(amount, "ether");
 
             await ethereum.request({ 
-                method: 'eth_sendTransactions',
+                method: 'eth_sendTransaction',
                 params: [{
                 from: currentAccount,
                 to: addressTo, 
                 gas: '0x5208',
-                vaue: parsedAmount._hex,    
+                value: '0x' + parsedAmount.toString(16),
                 }]
-            });
+            })
 
            const transactionHash = await transactionContract.addToBlockchain(addressTo,parsedAmount,message,keyword);
            
