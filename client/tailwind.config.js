@@ -31,5 +31,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("C:\\Users\\balma\\Documents\\GitHub\\solidity_js\\client\\tailwind.config.js")],
+  plugins: [require("./tailwind.config.js")],
 };
